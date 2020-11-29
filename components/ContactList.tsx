@@ -31,6 +31,7 @@ const ContactList = (props:ContactListprops) => {
 
             const checkChatRoom=listChatRoom.data.listChatRooms.items.filter(chats => chats.name === `${user.name} Chatroom`)
 
+            if (checkChatRoom.length === 0) {
 
                 const chatRoomData = await API.graphql(
                     graphqlOperation(
@@ -78,6 +79,13 @@ const ContactList = (props:ContactListprops) => {
                 )
     
                 navigation.navigate("ChatRoom",{id:newChatRoom.id, name:user.name})
+
+            } else {
+                navigation.navigate("ChatRoom",{
+                    id:checkChatRoom[0].id,
+                    name:user.name
+                })
+            }
 
         } catch (e) {
             console.log(e)
